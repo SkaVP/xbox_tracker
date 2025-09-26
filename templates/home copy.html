@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-5">🎮 Xbox Tracker</h1>
+        {% if user.is_authenticated %}
+            <p class="lead">Добро пожаловать, <strong>{{ user.username }}</strong>! Готов продолжить игру?</p>
+        {% else %}
+            <p class="lead">Отслеживай свои игры, прогресс и достижения — всё в одном месте.</p>
+            <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">🔐 Войти</a>
+            <p class="mt-2">Нет аккаунта? <a href="{% url 'signup' %}">Зарегистрироваться</a></p>
+        {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="row">
+        <!-- 📊 Статистика -->
+        <div class="col-md-4">
+            <div class="card text-bg-light mb-3">
+                <div class="card-header">📊 Статистика</div>
+                <div class="card-body">
+                    <p>Всего игр: <strong>{{ stats.total }}</strong></p>
+                    <p>Завершено: <strong>{{ stats.completed }}</strong></p>
+                    <p>Прогресс: <strong>{{ stats.completion_rate }}%</strong></p>
+                    <a href="{% url 'stats' %}" class="btn btn-sm btn-outline-dark">Подробнее</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🕹️ Последние игры -->
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-header">🕹️ Последние добавленные игры</div>
+                <ul class="list-group list-group-flush">
+                    {% for game in recent_games %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ game.title }}
+                            <span class="badge bg-secondary">{{ game.genre }}</span>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">Нет добавленных игр.</li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer text-end">
+                    <a href="{% url 'games_list' %}" class="btn btn-sm btn-primary">📋 Перейти к коллекции</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

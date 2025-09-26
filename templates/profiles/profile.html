@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Профиль{% endblock %}
+{% block content %}
+<h2>👤 Профиль пользователя</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ user.username }} ({{ user.gamertag }})</h5>
+        {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" class="img-thumbnail mb-3" width="150">
+        {% endif %}
+        <p><strong>Биография:</strong> {{ profile.bio }}</p>
+        <p><strong>Любимые жанры:</strong> {{ profile.favorite_genres|join:", " }}</p>
+    </div>
+</div>
+{% endblock %}
+</html>

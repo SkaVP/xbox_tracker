@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Мои игры{% endblock %}
+{% block content %}
+<h2>📚 Моя коллекция игр</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Жанр</th>
+            <th>Статус</th>
+            <th>Оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user_game in user_games %}
+        <tr>
+            <td>{{ user_game.game.title }}</td>
+            <td>{{ user_game.game.genre }}</td>
+            <td>{{ user_game.get_status_display }}</td>
+            <td>{{ user_game.rating|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Нет добавленных игр.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

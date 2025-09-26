@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Статистика{% endblock %}
+{% block content %}
+<h2 class="mb-4">📊 Статистика по играм</h2>
+<ul class="list-group">
+    <li class="list-group-item">Всего игр: {{ total }}</li>
+    <li class="list-group-item">Завершено: {{ completed }}</li>
+    <li class="list-group-item">Прогресс: {{ completion_rate }}%</li>
+</ul>
+{% endblock %}
