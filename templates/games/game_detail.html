@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <a href="{% url 'games_list' %}" class="btn btn-secondary mb-3">← Назад к списку</a>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">{{ game.title }}</h2>
+      <p class="card-text"><strong>Жанр:</strong> {{ game.genre|default:"Не указан" }}</p>
+      <p class="card-text"><strong>Описание:</strong> {{ game.description|default:"Нет описания" }}</p>
+      <p class="card-text"><strong>Дата релиза:</strong> {{ game.release_date }}</p>
+
+      {% if game.cover_image %}
+        <img src="{{ game.cover_image.url }}" alt="Обложка {{ game.title }}" class="img-fluid mt-3 rounded">
+      {% endif %}
+
+      {% if game.status %}
+        <p class="mt-3"><strong>Статус:</strong> {{ game.get_status_display }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
