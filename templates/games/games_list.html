@@ -1,27 +1,42 @@
 {% extends 'base.html' %}
-{% block title %}Мои игры{% endblock %}
+{% load static %}
+
 {% block content %}
-<h2>📚 Моя коллекция игр</h2>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Название</th>
-            <th>Жанр</th>
-            <th>Статус</th>
-            <th>Оценка</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user_game in user_games %}
-        <tr>
-            <td>{{ user_game.game.title }}</td>
-            <td>{{ user_game.game.genre }}</td>
-            <td>{{ user_game.get_status_display }}</td>
-            <td>{{ user_game.rating|default:"—" }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">Нет добавленных игр.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container mt-4">
+  <h2 class="mb-4">📚 Моя библиотека игр</h2>
+
+  <!-- Форма добавления новой игры -->
+  <div class="card mb-4">
+    <div class="card-header">Добавить игру</div>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Добавить</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Список игр -->
+  {% if games %}
+    <div class="row">
+      {% for game in games %}
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ game.title }}</h5>
+              <p class="card-text text-muted">
+                {{ game.description|default:"Нет описания" |truncatewords:20 }}
+              </p>
+              <p class="card-text"><strong>Дата релиза:</strong> {{ game.release_date }}</p>
+              <a href="{% url 'game_detail' game.pk %}" class="btn btn-primary">Подробнее</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">Пока нет добавленных игр.</p>
+  {% endif %}
+</div>
 {% endblock %}
