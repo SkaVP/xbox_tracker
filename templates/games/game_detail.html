@@ -11,6 +11,7 @@
       <p class="card-text"><strong>Жанр:</strong> {{ game.genre|default:"Не указан" }}</p>
       <p class="card-text"><strong>Описание:</strong> {{ game.description|default:"Нет описания" }}</p>
       <p class="card-text"><strong>Дата релиза:</strong> {{ game.release_date }}</p>
+      <a href="{% url 'game_edit' game.pk %}" class="btn btn-warning mt-3">✏️ Редактировать</a>
 
       {% if game.cover_image %}
         <img src="{{ game.cover_image.url }}" alt="Обложка {{ game.title }}" class="img-fluid mt-3 rounded">

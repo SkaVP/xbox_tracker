@@ -8,6 +8,7 @@ class Game(models.Model):
     title = models.CharField(max_length=100)
     xbox_id = models.CharField(max_length=50, unique=True)
     genre = models.CharField(max_length=50)
+    release_date = models.DateField("Дата выхода", null=True, blank=True)
     cover = models.ImageField(upload_to='covers/', blank=True, null=True)
 
     def __str__(self):

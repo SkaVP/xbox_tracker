@@ -30,6 +30,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+MEDIA_URL = ''
+MEDIA_ROOT = BASE_DIR / ''
+
+
 AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_URL = '/users/login/'
@@ -62,7 +66,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
